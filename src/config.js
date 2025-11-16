@@ -1,6 +1,7 @@
 const config = 
-{
-    "url":"http://localhost:2004"
+{   
+    "url":"https://llsdpbackend.onrender.com"
+    //"url":"http://localhost:2004"
     //"https://sdpbackend-famf.onrender.com"
 }
 
