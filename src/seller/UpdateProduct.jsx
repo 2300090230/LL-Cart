@@ -57,8 +57,8 @@ const UpdateProduct = () => {
               cost: fetchedProduct.cost || ''
             });
             
-            // Set preview URL for existing image
-            setPreviewUrl(`${config.url}/product/displayproductimage?id=${productId}`);
+            // Set preview URL for existing image from Cloudinary
+            setPreviewUrl(fetchedProduct.imageUrl || "https://placehold.co/400x400?text=No+Image");
           }
         } else {
           setError("Product ID is missing");
@@ -384,7 +384,7 @@ const UpdateProduct = () => {
                     alt="Product Preview" 
                     className="max-h-64 object-contain" 
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/300x200?text=Image+Not+Available";
+                      e.target.src = "https://placehold.co/400x400?text=No+Image";
                     }}
                   />
                 </div>

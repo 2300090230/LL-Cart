@@ -236,12 +236,11 @@ export default function ViewProductsBySeller() {
               <div className="relative h-48 bg-gray-100 overflow-hidden">
                 {imagesLoaded ? (
                   <img
-                    src={`${config.url}/product/displayproductimage?id=${product.id}`}
+                    src={product.imageUrl || "https://placehold.co/300x200?text=No+Image"}
                     alt={product.name}
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300 animate-image-fade-in"
                     onError={(e) => {
-                      e.target.src =
-                        "https://via.placeholder.com/300x200?text=Product+Image";
+                      e.target.src = "https://placehold.co/300x200?text=No+Image";
                     }}
                     style={{ animationDelay: `${index * 150}ms` }}
                   />

@@ -63,13 +63,10 @@ export default function ProductDetail() {
 
       const buyerId = buyerData.id;
 
-      const cartItem = {
-        product: { id: product.id },
-        quantity: quantity,
-        buyer: { id: parseInt(buyerId) }
-      };
-
-      const response = await axios.post(`${config.url}/cart/add`, cartItem);
+      // Backend expects query parameters: buyerId, productId, quantity
+      const response = await axios.post(
+        `${config.url}/cart/add?buyerId=${buyerId}&productId=${product.id}&quantity=${quantity}`
+      );
       
       if (response.status === 200) {
         const cartUpdateEvent = new CustomEvent('cartUpdated', { 
@@ -204,12 +201,12 @@ export default function ProductDetail() {
         <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-center">
           <div className={`transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <img 
-              src={`${config.url}/product/displayproductimage?id=${product.id}`}
+              src={product.imageUrl || "https://placehold.co/600x600?text=No+Image"}
               alt={product.name}
               className="max-h-96 max-w-full object-contain"
               onLoad={() => setImageLoaded(true)}
               onError={(e) => {
-                e.target.src = "https://via.placeholder.com/600x600?text=Product+Image+Not+Available";
+                e.target.src = "https://placehold.co/600x600?text=No+Image";
                 setImageLoaded(true);
               }}
             />
@@ -313,11 +310,11 @@ export default function ProductDetail() {
               >
                 <div className="h-48 bg-gray-100 flex items-center justify-center p-4">
                   <img
-                    src={`${config.url}/product/displayproductimage?id=${relatedProduct.id}`}
+                    src={relatedProduct.imageUrl || "https://placehold.co/300x200?text=No+Image"}
                     alt={relatedProduct.name}
                     className="max-h-full max-w-full object-contain"
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                      e.target.src = "https://placehold.co/300x200?text=No+Image";
                     }}
                   />
                 </div>

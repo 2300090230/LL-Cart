@@ -87,13 +87,10 @@ export default function BuyerHome() {
 
       const buyerId = buyerData.id;
 
-      const cartItem = {
-        product: { id: product.id },
-        quantity: 1,
-        buyer: { id: parseInt(buyerId) }
-      };
-
-      const response = await axios.post(`${config.url}/cart/add`, cartItem);
+      // Backend expects query parameters: buyerId, productId, quantity
+      const response = await axios.post(
+        `${config.url}/cart/add?buyerId=${buyerId}&productId=${product.id}&quantity=1`
+      );
       
       // Check if the response indicates success
       if (response.status === 200) {
@@ -187,12 +184,12 @@ export default function BuyerHome() {
               <div className="relative p-4 bg-gray-100 flex justify-center items-center h-48">
                 {imagesLoaded ? (
                   <img 
-                    src={`${config.url}/product/displayproductimage?id=${product.id}`} 
+                    src={product.imageUrl || "https://placehold.co/300x200?text=No+Image"} 
                     alt={product.name} 
                     className="max-h-full max-w-full object-contain animate-image-fade-in"
                     style={{ animationDelay: `${index * 150}ms` }}
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                      e.target.src = "https://placehold.co/300x200?text=No+Image";
                     }}
                   />
                 ) : (

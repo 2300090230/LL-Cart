@@ -363,11 +363,11 @@ export default function BuyerNavBar() {
                         >
                           <div className="w-12 h-12 flex-shrink-0 mr-4 bg-gray-100 rounded overflow-hidden">
                             <img 
-                              src={`${config.url}/product/displayproductimage?id=${product.id}`}
+                              src={product.imageUrl || "https://placehold.co/100x100?text=No+Image"}
                               alt={product.name}
                               className="w-full h-full object-cover"
                               onError={(e) => {
-                                e.target.src = "https://via.placeholder.com/100?text=Product";
+                                e.target.src = "https://placehold.co/100x100?text=No+Image";
                               }}
                             />
                           </div>
@@ -1007,13 +1007,10 @@ const SearchResults = () => {
         return;
       }
 
-      const cartItem = {
-        buyerId: buyerData.id,
-        productId: product.id,
-        quantity: 1,
-      };
-
-      const response = await axios.post(`${config.url}/cart/add`, cartItem);
+      // Backend expects query parameters: buyerId, productId, quantity
+      const response = await axios.post(
+        `${config.url}/cart/add?buyerId=${buyerData.id}&productId=${product.id}&quantity=1`
+      );
       if (response.status === 200) {
         toast.success(`${product.name} added to cart!`);
         window.dispatchEvent(new Event('cartUpdated')); // Dispatch cart update event
@@ -1083,12 +1080,12 @@ const SearchResults = () => {
               <div className="relative p-4 bg-gray-100 flex justify-center items-center h-48">
                 {imagesLoaded ? (
                   <img 
-                    src={`${config.url}/product/displayproductimage?id=${product.id}`} 
+                    src={product.imageUrl || "https://placehold.co/300x200?text=No+Image"} 
                     alt={product.name} 
                     className="max-h-full max-w-full object-contain animate-image-fade-in"
                     style={{ animationDelay: `${index * 150}ms` }}
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                      e.target.src = "https://placehold.co/300x200?text=No+Image";
                     }}
                   />
                 ) : (

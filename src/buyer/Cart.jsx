@@ -682,13 +682,13 @@ const handlePlaceOrder = async () => {
                       </div>
                     )}
                     <img 
-                      src={`${config.url}/product/displayproductimage?id=${item.product.id}`} 
+                      src={item.product.imageUrl || "https://placehold.co/200x200?text=No+Image"} 
                       alt={item.product.name}
                       className={`w-full h-full object-contain ${!imagesLoaded[item.id] ? 'opacity-0' : 'opacity-100'}`}
                       style={{ transition: 'opacity 0.3s' }}
                       onLoad={() => handleImageLoad(item.id)}
                       onError={(e) => {
-                        e.target.src = "https://via.placeholder.com/100?text=Product";
+                        e.target.src = "https://placehold.co/200x200?text=No+Image";
                         handleImageLoad(item.id);
                       }}
                     />
@@ -774,13 +774,13 @@ const handlePlaceOrder = async () => {
                             </div>
                           )}
                           <img 
-                            src={`${config.url}/product/displayproductimage?id=${item.product.id}`} 
+                            src={item.product.imageUrl || "https://placehold.co/200x200?text=No+Image"} 
                             alt={item.product.name} 
                             className={`w-full h-full object-contain p-2 ${!imagesLoaded[item.id] ? 'opacity-0' : 'opacity-100'}`}
                             style={{ transition: 'opacity 0.3s' }}
                             onLoad={() => handleImageLoad(item.id)}
                             onError={(e) => {
-                              e.target.src = "https://via.placeholder.com/100?text=Product";
+                              e.target.src = "https://placehold.co/200x200?text=No+Image";
                               handleImageLoad(item.id);
                             }}
                           />

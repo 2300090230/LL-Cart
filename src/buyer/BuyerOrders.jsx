@@ -94,13 +94,13 @@ export default function BuyerOrders() {
                     </div>
                   )}
                   <img 
-                    src={`${config.url}/product/displayproductimage?id=${order.product.id}`} 
+                    src={order.product.imageUrl || "https://placehold.co/300x200?text=No+Image"} 
                     alt={order.product.name} 
                     className={`w-full h-full object-contain p-2 ${!imagesLoaded[order.id] ? 'opacity-0' : 'opacity-100'}`}
                     style={{ transition: 'opacity 0.3s' }}
                     onLoad={() => handleImageLoad(order.id)}
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/100?text=Product";
+                      e.target.src = "https://placehold.co/300x200?text=No+Image";
                       handleImageLoad(order.id);
                     }}
                   />

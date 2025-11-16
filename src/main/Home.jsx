@@ -207,11 +207,11 @@ export default function Home() {
       <div className="relative h-48 bg-gray-100" style={{ cursor: 'pointer' }}>
         {imagesLoaded ? (
           <img 
-            src={`${config.url}/product/displayproductimage?id=${product.id}`} 
+            src={product.imageUrl || "https://placehold.co/300x200?text=No+Image"} 
             alt={product.name} 
             className="w-full h-full object-contain"
             onError={(e) => {
-              e.target.src = "https://via.placeholder.com/300?text=Product";
+              e.target.src = "https://placehold.co/300x200?text=No+Image";
             }}
           />
         ) : (
